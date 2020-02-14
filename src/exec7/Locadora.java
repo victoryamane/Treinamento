@@ -154,11 +154,13 @@ public class Locadora {
 	public void exibeTudo() {
 		String message = "";
 		for (int i = 0; i < vetorCarro.length; i++) {
+			if (!vetorCarro[i].vendido) {
 			message = message + "\n Modelo do carro: " + vetorCarro[i].modelo + "\n" + "\n Placa: "
 					+ vetorCarro[i].placa + "\n" + "\n Velocidade maxima: " + vetorCarro[i].velocidadeMaxima + "\n"
 					+ "\n Tipo de combustivel: " + vetorCarro[i].combustivel + "\n" + "\n Valor do carro: "
 					+ vetorCarro[i].valor + "\n" + "\n Cor: " + vetorCarro[i].cor;
-		}
+			}
+			}
 		JOptionPane.showMessageDialog(null, message);
 	}
 
@@ -190,13 +192,13 @@ public class Locadora {
 		for (int i = 0; i <= contador; i++) {
 			try {
 				if (i == escolha) {
-					int valor = Integer.parseInt(JOptionPane.showInputDialog(
-							"Valor do carro: R$" + carroAuxiliar[i].valor + "\n" + "Informe o valor a ser pago: R$"));
+					int valor = Integer.parseInt(JOptionPane.showInputDialog("Valor do carro: R$" + carroAuxiliar[i].valor + "\n" + "Informe o valor a ser pago: R$"));
 					if (valor == carroAuxiliar[i].valor) {
 						JOptionPane.showMessageDialog(null, "Compra efetuada");
+						excluirCadastro(carroAuxiliar[i]);
 					} else if (valor > carroAuxiliar[i].valor) {
-						JOptionPane.showMessageDialog(null,
-								"Valor a ser devolvido: R$" + (valor - carroAuxiliar[i].valor));
+						JOptionPane.showMessageDialog(null, "Valor a ser devolvido: R$" + (valor - carroAuxiliar[i].valor));
+						excluirCadastro(carroAuxiliar[i]);
 					} else {
 						JOptionPane.showMessageDialog(null, "Valor insuficiente");
 					}
@@ -205,6 +207,17 @@ public class Locadora {
 				JOptionPane.showMessageDialog(null, "Favor digitar o valor solicitado corretamente");
 			}
 		}
+	}
+	
+	public void excluirCadastro(Carro carro) {
+		for (int i=0; i<vetorCarro.length; i++) {
+			if (carro.placa.equals(vetorCarro[i].placa)) {
+				vetorCarro[i].vendido = true;
+				break;
+			}
+		}
+		exibeLista();
+		exibeTudo();		
 	}
 
 	// Metodo que define a escolhas
