@@ -67,7 +67,7 @@ public class TesteGui4 {
 		btnVerificar = new JButton();
 		painelDaJanela = (JPanel) janela.getContentPane();
 
-		// Cria o bejeto de grupo de botoões
+		// Cria objeto de grupo de botoões
 		grpRadio = new ButtonGroup();
 
 		// Adiciona os botões ao grupo
